@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="NotifyIconService.Views.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+             xmlns:ViewModels="clr-namespace:NotifyIconService.ViewModels"
+             mc:Ignorable="d" DataContext="{dxmvvm:ViewModelSource ViewModels:MainViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <dxmvvm:Interaction.Behaviors>
+        <dxmvvm:CurrentWindowService/>
+        <dx:DXMessageBoxService/>
+        <dx:NotifyIconService LeftClickCommand="{Binding ActivateMainWindowCommand}"
+                              Icon="Images/default.ico">
+            <dx:NotifyIconService.States>
+                <dx:NotifyIconState Name="connected" Icon="Images/connected.ico"/>
+                <dx:NotifyIconState Name="disconnected" Icon="Images/disconnected.ico"/>
+            </dx:NotifyIconService.States>
+            <dx:NotifyIconService.ContextMenu>
+                <dxb:PopupMenu>
+                    <dxb:BarItemMenuHeader Content="NotifyIconService's Menu ">
+                        <dxb:BarItemMenuHeader.ContentTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" FontSize="10" />
+                            </DataTemplate>
+                        </dxb:BarItemMenuHeader.ContentTemplate>
+                        <dxb:BarButtonItem Content="Connect" Command="{Binding ConnectCommand}" />
+                        <dxb:BarButtonItem Content="Disconnect" Command="{Binding DisconnectCommand}" Glyph="{dx:DXImage Image=Delete_16x16.png}"/>
+                        <dxb:BarItemSeparator/>
+                        <dxb:BarButtonItem Content="About"  Command="{Binding AboutCommand}" Glyph="{dx:DXImage Image=Information_16x16.png}"/>
+                    </dxb:BarItemMenuHeader>
+                </dxb:PopupMenu>
+            </dx:NotifyIconService.ContextMenu>
+        </dx:NotifyIconService>
+    </dxmvvm:Interaction.Behaviors>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <GroupBox Header="Action" Margin="5 2">
+            <StackPanel Orientation="Horizontal">
+                <dx:SimpleButton Content="Connect" Command="{Binding ConnectCommand}" Margin="2 5" />
+                <dx:SimpleButton Content="Disconnect" Command="{Binding DisconnectCommand}" Margin="2 5"/>
+                <dx:SimpleButton Content="Reset" Command="{Binding ResetCommand}" Margin="2 5"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Status" Margin="5 2" Grid.Row="1" >
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Opacity" Value="0.75"/>
+                        <Setter Property="FontSize" Value="25"/>
+                        <Setter Property="Text" Value="Default"/>
+                        <Setter Property="Foreground" Value="Gray"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                                <Setter Property="Text" Value="Connected"/>
+                                <Setter Property="Foreground" Value="YellowGreen"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsConnected}" Value="False">
+                                <Setter Property="Text" Value="Disconnected"/>
+                                <Setter Property="Foreground" Value="LightPink"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </GroupBox>
+    </Grid>
+</UserControl>
