@@ -14,10 +14,10 @@
         <dxmvvm:CurrentWindowService/>
         <dx:DXMessageBoxService/>
         <dx:NotifyIconService LeftClickCommand="{Binding ActivateMainWindowCommand}"
-                              Icon="Images/default.ico">
+                              Icon="../Images/default.ico">
             <dx:NotifyIconService.States>
-                <dx:NotifyIconState Name="connected" Icon="Images/connected.ico"/>
-                <dx:NotifyIconState Name="disconnected" Icon="Images/disconnected.ico"/>
+                <dx:NotifyIconState Name="connected" Icon="../Images/connected.ico"/>
+                <dx:NotifyIconState Name="disconnected" Icon="../Images/disconnected.ico"/>
             </dx:NotifyIconService.States>
             <dx:NotifyIconService.ContextMenu>
                 <dxb:PopupMenu>
