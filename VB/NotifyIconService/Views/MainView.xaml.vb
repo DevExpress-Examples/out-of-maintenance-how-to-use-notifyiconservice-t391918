@@ -1,10 +1,11 @@
-﻿Imports System.Windows.Controls
+Imports System.Windows.Controls
 
 Namespace NotifyIconService.Views
+
     ''' <summary>
     ''' Interaction logic for MainView.xaml
     ''' </summary>
-    Partial Public Class MainView
+    Public Partial Class MainView
         Inherits UserControl
 
         Public Sub New()
